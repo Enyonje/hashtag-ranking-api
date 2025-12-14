@@ -1,31 +1,19 @@
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
 
-import express from 'express';
-import helmet from 'helmet';
-import cors from 'cors';
-import morgan from 'morgan';
-import { apiKeyAuth } from './http/middleware/apiKeyAuth';
-import { rankingRouter } from './http/routes/ranking';
-import openapiRouter from './http/docs/openapi';
+const app = express();
 
-export const app = express();
-
-app.use(helmet());
+// Middleware
 app.use(cors());
+app.use(helmet());
+app.use(morgan("dev"));
 app.use(express.json());
 
-// Keep logging minimal in tests
-if (process.env.NODE_ENV !== 'test') {
-  app.use(morgan('dev'));
-}
-
-// Auth middleware first
-app.use(apiKeyAuth);
-
-// Mount docs only outside tests (Swagger can be surprisingly heavy)
-if (process.env.NODE_ENV !== 'test') {
-  app.use(openapiRouter);
-}
-
-app.use('/v1/hashtags', rankingRouter);
+// Example route
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
 
 export default app;
