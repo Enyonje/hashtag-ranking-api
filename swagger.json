@@ -1,0 +1,50 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Hashtag Ranking API",
+    "version": "v1",
+    "description": "Discover trending hashtags and optimize your social media reach with real-time analytics."
+  },
+  "servers": [
+    {
+      "url": "https://hashtag-ranking-api.onrender.com/v1"
+    }
+  ],
+  "paths": {
+    "/hashtags/rank": {
+      "get": {
+        "summary": "Get ranked hashtags for a keyword",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "default": 5 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "keyword": "fitness",
+                  "hashtags": [
+                    { "tag": "#FitnessGoals", "score": 92 },
+                    { "tag": "#WorkoutMotivation", "score": 87 }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
