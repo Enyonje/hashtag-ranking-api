@@ -1,14 +1,26 @@
-import express from "express";
-import app from "./app.js";
+import "dotenv/config";
+import mongoose from "mongoose";
+import app from "./app";
 
 const PORT = process.env.PORT || 8080;
 
-// Stripe webhook needs raw body
-app.use(
-  "/webhook",
-  express.raw({ type: "application/json" })
-);
+/* ===========================
+   DATABASE CONNECTION
+=========================== */
+if (!process.env.MONGO_URL) {
+  throw new Error("MONGO_URL is missing");
+}
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => {
+    console.log("✅ MongoDB connected");
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("❌ MongoDB connection failed:", err);
+    process.exit(1);
+  });
