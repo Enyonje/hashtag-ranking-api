@@ -2,11 +2,15 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "CommonJS",
-    "rootDir": ".",
+    "rootDir": "src",                 // 👈 only compile app code
     "outDir": "dist",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "strict": true,
-    "types": ["node", "jest"]
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"]
   },
-  "include": ["src", "tests"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "tests"]
 }
