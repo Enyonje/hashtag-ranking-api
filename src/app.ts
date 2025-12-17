@@ -5,7 +5,7 @@ import cors from "cors";
 import helmet from "helmet";
 import Stripe from "stripe";
 import OpenAI from "openai";
-import User from "./models/User";
+import User from "../models/User";
 
 const app = express();
 
